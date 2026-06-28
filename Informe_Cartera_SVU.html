@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Informe Cartera SVU</title>
+<style>
+  :root{
+    --bg:#0f1419; --card:#161d27; --card2:#1c2530; --border:#2a3441;
+    --txt:#e8ecf1; --muted:#8a96a3; --green:#3ddc84; --red:#ff6b6b;
+    --amber:#ffb84d; --blue:#5b9bf2; --purple:#b388ff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--txt);
+    font-family:'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    padding:0 0 60px 0;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+  header{
+    background:linear-gradient(135deg,#1a2332 0%,#0f1419 100%);
+    padding:40px 0 30px 0; border-bottom:1px solid var(--border);
+    margin-bottom:32px;
+  }
+  header .wrap{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:12px;}
+  h1{margin:0; font-size:28px; font-weight:700;}
+  .subtitle{color:var(--muted); font-size:14px; margin-top:6px;}
+  .updated{color:var(--muted); font-size:13px; text-align:right;}
+
+  h2{font-size:18px; margin:0 0 16px 0; display:flex; align-items:center; gap:8px;}
+  .section{margin-bottom:40px;}
+
+  .kpi-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:40px;}
+  @media (max-width:800px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+  .kpi{
+    background:var(--card); border:1px solid var(--border); border-radius:12px;
+    padding:18px 20px;
+  }
+  .kpi .label{color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.04em;}
+  .kpi .value{font-size:24px; font-weight:700; margin-top:6px;}
+  .kpi .sub{font-size:12px; color:var(--muted); margin-top:4px;}
+  .pos{color:var(--green);} .neg{color:var(--red);}
+
+  table{width:100%; border-collapse:collapse; font-size:13.5px;}
+  th{
+    text-align:left; padding:10px 12px; background:var(--card2);
+    color:var(--muted); font-weight:600; font-size:11.5px; text-transform:uppercase;
+    letter-spacing:.03em; border-bottom:1px solid var(--border);
+  }
+  td{padding:10px 12px; border-bottom:1px solid var(--border);}
+  tr:last-child td{border-bottom:none;}
+  tr.total-row td{font-weight:700; background:var(--card2);}
+  .card-table{background:var(--card); border:1px solid var(--border); border-radius:12px; overflow:hidden;}
+  .badge{
+    display:inline-block; padding:2px 9px; border-radius:20px; font-size:11px; font-weight:600;
+  }
+  .badge-ok{background:rgba(61,220,132,.15); color:var(--green);}
+  .badge-warn{background:rgba(255,184,77,.15); color:var(--amber);}
+  .badge-bad{background:rgba(255,107,107,.15); color:var(--red);}
+  .badge-na{background:rgba(138,150,163,.15); color:var(--muted);}
+
+  .bar-row{display:flex; align-items:center; gap:14px; margin-bottom:18px;}
+  .bar-label{width:120px; font-size:13px; flex-shrink:0;}
+  .bar-track{flex:1; position:relative; height:26px; background:var(--card2); border-radius:6px; overflow:visible;}
+  .bar-fill{height:100%; border-radius:6px; transition:width .3s;}
+  .bar-target-line{position:absolute; top:-4px; bottom:-4px; width:2px; background:#fff; opacity:.6;}
+  .bar-pct{width:130px; text-align:right; font-size:13px; flex-shrink:0;}
+  .legend{display:flex; gap:20px; font-size:12px; color:var(--muted); margin-bottom:14px;}
+  .legend span{display:inline-flex; align-items:center; gap:6px;}
+  .dot{width:10px; height:10px; border-radius:50%; display:inline-block;}
+
+  .proj-chart{display:flex; align-items:flex-end; gap:24px; height:220px; padding:20px 10px 0 10px; background:var(--card); border:1px solid var(--border); border-radius:12px;}
+  .proj-bar-wrap{flex:1; display:flex; flex-direction:column; align-items:center; height:100%; justify-content:flex-end;}
+  .proj-bar{width:56%; max-width:70px; border-radius:6px 6px 0 0; background:linear-gradient(180deg,#5b9bf2,#3a6fc4); position:relative;}
+  .proj-val{font-size:12px; color:var(--txt); margin-bottom:6px; font-weight:600; text-align:center;}
+  .proj-year{font-size:12px; color:var(--muted); margin-top:10px;}
+
+  .thesis-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
+  @media (max-width:760px){.thesis-grid{grid-template-columns:1fr;}}
+  .thesis-card{
+    background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px 18px;
+  }
+  .thesis-card h3{margin:0 0 4px 0; font-size:15px;}
+  .thesis-card .moat{font-size:11.5px; color:var(--muted); margin-bottom:10px;}
+  .thesis-card .yield{font-size:13px; line-height:1.5; margin-bottom:8px;}
+  .thesis-card .note{font-size:12px; color:var(--muted); line-height:1.45;}
+  .pick-star{color:var(--amber); font-weight:700; font-size:11px; float:right;}
+
+  .rules-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  @media (max-width:800px){.rules-grid{grid-template-columns:1fr;}}
+  .rule{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px;}
+  .rule .rtitle{font-size:13px; font-weight:700; color:var(--blue); margin-bottom:6px;}
+  .rule .rtext{font-size:12.5px; color:var(--muted); line-height:1.5;}
+
+  .gap-note{
+    background:rgba(255,184,77,.1); border:1px solid rgba(255,184,77,.3); border-radius:10px;
+    padding:12px 16px; font-size:13px; color:var(--amber); margin-top:14px;
+  }
+  footer{text-align:center; color:var(--muted); font-size:12px; margin-top:50px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div>
+      <h1>Cartera SVU — Informe Visual</h1>
+      <div class="subtitle">Sebastián Viveros Uribe · Política de inversión (IPS) y estado actual del portafolio</div>
+    </div>
+    <div class="updated">Generado el 28/06/2026<br>Meta: 60 años el 15/02/2057</div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- KPIs -->
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="label">Valor total cartera</div>
+      <div class="value">$1.440.055</div>
+      <div class="sub">CLP, todas las posiciones</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Rentabilidad ponderada</div>
+      <div class="value pos">+12,58%</div>
+      <div class="sub">sobre 94,8% del portafolio medido</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Aporte mensual base</div>
+      <div class="value">$150.000</div>
+      <div class="sub">+5% anual, rebalanceo pasivo</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Proyección a 2057</div>
+      <div class="value">$674.9 MM</div>
+      <div class="sub">valor nominal, edad 60 años</div>
+    </div>
+  </div>
+
+  <!-- ASIGNACION -->
+  <div class="section">
+    <h2>📊 Asignación por categoría — real vs. objetivo</h2>
+    <div class="legend">
+      <span><span class="dot" style="background:var(--blue)"></span> % real de la cartera</span>
+      <span><span class="dot" style="background:#fff;opacity:.6"></span> objetivo IPS</span>
+    </div>
+
+    <div class="bar-row">
+      <div class="bar-label">Dividendos</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:43.8%; background:var(--blue);"></div>
+        <div class="bar-target-line" style="left:70%;"></div>
+      </div>
+      <div class="bar-pct">43,8% <span style="color:var(--muted)">/ 70%</span> <span class="badge badge-bad">Desviado ↓</span></div>
+    </div>
+
+    <div class="bar-row">
+      <div class="bar-label">USA</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:36.3%; background:var(--blue);"></div>
+        <div class="bar-target-line" style="left:7.5%;"></div>
+      </div>
+      <div class="bar-pct">36,3% <span style="color:var(--muted)">/ 7,5%</span> <span class="badge badge-bad">Desviado ↑</span></div>
+    </div>
+
+    <div class="bar-row">
+      <div class="bar-label">Emergentes</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:7.4%; background:var(--green);"></div>
+        <div class="bar-target-line" style="left:7.5%;"></div>
+      </div>
+      <div class="bar-pct">7,4% <span style="color:var(--muted)">/ 7,5%</span> <span class="badge badge-ok">OK</span></div>
+    </div>
+
+    <div class="bar-row">
+      <div class="bar-label">Internacional</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:0.3%; background:var(--blue);"></div>
+        <div class="bar-target-line" style="left:7.5%;"></div>
+      </div>
+      <div class="bar-pct">0,0% <span style="color:var(--muted)">/ 7,5%</span> <span class="badge badge-bad">Desviado ↓</span></div>
+    </div>
+
+    <div class="bar-row">
+      <div class="bar-label">Crypto</div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:12.6%; background:var(--purple);"></div>
+        <div class="bar-target-line" style="left:7.5%;"></div>
+        <div class="bar-target-line" style="left:15%; background:var(--red);"></div>
+      </div>
+      <div class="bar-pct">12,6% <span style="color:var(--muted)">/ 7,5% (tope 15%)</span> <span class="badge badge-warn">Sobre objetivo</span></div>
+    </div>
+
+    <div class="gap-note">
+      ⚠ <b>Dividendos</b> e <b>Internacional</b> están bajo el objetivo del IPS; <b>USA</b> y <b>Crypto</b> sobre objetivo (Crypto aún dentro del tope duro de 15%). El motor de rebalanceo pasivo ya redirige los nuevos aportes 100% hacia Dividendos + Internacional hasta corregir la desviación — no se vende nada para reequilibrar.
+    </div>
+  </div>
+
+  <!-- DETALLE POR INSTRUMENTO -->
+  <div class="section">
+    <h2>📋 Detalle por instrumento</h2>
+    <div class="card-table">
+    <table>
+      <thead>
+        <tr><th>Instrumento</th><th>Categoría</th><th>Broker</th><th>Costo (CLP)</th><th>Valor + Divs (CLP)</th><th>Rentabilidad</th><th>% Cartera</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>CFISPETF (S&P 500 ETF)</td><td>USA</td><td>Itaú</td><td>358.145</td><td>411.466</td><td class="pos">+14,89%</td><td>28,6%</td></tr>
+        <tr><td>CFINRENTAS (Rentas Inmob.)</td><td>Dividendos</td><td>Itaú</td><td>149.862</td><td>205.981</td><td class="pos">+37,45%</td><td>13,4%</td></tr>
+        <tr><td>CFMITNIPSA (IPSA ETF)</td><td>Dividendos</td><td>Itaú</td><td>95.145</td><td>122.885</td><td class="pos">+29,16%</td><td>8,3%</td></tr>
+        <tr><td>CFINASDAQ (Nasdaq 100 ETF)</td><td>USA</td><td>Itaú</td><td>48.600</td><td>58.196</td><td class="pos">+19,74%</td><td>4,0%</td></tr>
+        <tr><td>Caja + Div. por liquidar</td><td>—</td><td>Itaú</td><td><span class="badge badge-na">n/a</span></td><td>1.745</td><td><span class="badge badge-na">n/a</span></td><td>0,1%</td></tr>
+        <tr><td>CHILE (Bco. de Chile)</td><td>Dividendos</td><td>Trii</td><td><span class="badge badge-na">sin costo</span></td><td>94.464</td><td><span class="badge badge-na">no medible</span></td><td>6,6%</td></tr>
+        <tr><td>ZOFRI</td><td>Dividendos</td><td>Zesty</td><td>99.792</td><td>99.396</td><td class="neg">-0,40%</td><td>6,9%</td></tr>
+        <tr><td>LIPIGAS</td><td>Dividendos</td><td>Trii</td><td>39.897</td><td>78.545</td><td class="pos">+96,87%</td><td>5,1%</td></tr>
+        <tr><td>AGUAS-A</td><td>Dividendos</td><td>—</td><td>18.816</td><td>18.480</td><td class="neg">-1,79%</td><td>1,3%</td></tr>
+        <tr><td>PEHUENCHE</td><td>Dividendos</td><td>—</td><td>18.592</td><td>18.410</td><td class="neg">-0,98%</td><td>1,3%</td></tr>
+        <tr><td>QUIÑENCO</td><td>Dividendos</td><td>—</td><td>11.595</td><td>12.273</td><td class="pos">+5,85%</td><td>0,9%</td></tr>
+        <tr><td>VWO</td><td>Emergentes</td><td>XTB</td><td>97.944</td><td>105.780</td><td class="pos">+8,00%</td><td>7,3%</td></tr>
+        <tr><td>MSFT</td><td>USA</td><td>XTB</td><td>50.995</td><td>51.102</td><td class="pos">+0,21%</td><td>3,5%</td></tr>
+        <tr><td>AAPL</td><td>USA</td><td>XTB</td><td>1.032</td><td>1.177</td><td class="pos">+13,99%</td><td>0,1%</td></tr>
+        <tr><td>BTC</td><td>Crypto</td><td>Binance</td><td>222.071</td><td>181.321</td><td class="neg">-18,35%</td><td>12,6%</td></tr>
+        <tr class="total-row"><td>TOTAL</td><td></td><td></td><td>1.212.486</td><td>1.440.055</td><td class="pos">+12,58%*</td><td>100%</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="gap-note">
+      * Rentabilidad total ponderada (+12,58%) calculada sobre el 94,8% del portafolio con costo conocido — <b>CHILE</b> (Banco de Chile, $94.464, 6,6% de la cartera) sigue sin costo base registrado, y la caja/dividendos por liquidar en Itaú ($1.745) no es una posición con rentabilidad.
+    </div>
+  </div>
+
+  <!-- PROYECCION -->
+  <div class="section">
+    <h2>📈 Proyección a futuro (valor nominal CLP)</h2>
+    <div class="proj-chart">
+      <div class="proj-bar-wrap">
+        <div class="proj-val">$2,43 MM</div>
+        <div class="proj-bar" style="height:6px;"></div>
+        <div class="proj-year">2026<br><span style="color:var(--muted)">29 años</span></div>
+      </div>
+      <div class="proj-bar-wrap">
+        <div class="proj-val">$13,50 MM</div>
+        <div class="proj-bar" style="height:30px;"></div>
+        <div class="proj-year">2030<br><span style="color:var(--muted)">33 años</span></div>
+      </div>
+      <div class="proj-bar-wrap">
+        <div class="proj-val">$83,42 MM</div>
+        <div class="proj-bar" style="height:90px;"></div>
+        <div class="proj-year">2040<br><span style="color:var(--muted)">43 años</span></div>
+      </div>
+      <div class="proj-bar-wrap">
+        <div class="proj-val">$674,9 MM</div>
+        <div class="proj-bar" style="height:170px; background:linear-gradient(180deg,#3ddc84,#1f9e5c);"></div>
+        <div class="proj-year">2057 🎯<br><span style="color:var(--muted)">60 años</span></div>
+      </div>
+    </div>
+    <div class="gap-note" style="background:rgba(91,155,242,.1); border-color:rgba(91,155,242,.3); color:var(--blue);">
+      ℹ Proyección con aporte base $150.000/mes (+5% anual) y reinversión de dividendos, según los supuestos actuales de la hoja "Parámetros Proyección". Cambia cualquier supuesto ahí y la tabla completa se recalcula sola.
+    </div>
+  </div>
+
+  <!-- TESIS DIVIDENDOS -->
+  <div class="section">
+    <h2>🔍 Tesis de dividendos — yield actual vs. histórico propio (revisión 26/06/2026)</h2>
+    <div class="thesis-grid">
+
+      <div class="thesis-card">
+        <h3>CHILE (Banco de Chile) <span class="badge badge-ok">En línea</span></h3>
+        <div class="moat">Regulatorio + escala (banca)</div>
+        <div class="yield">5,99% actual vs. ~5,5–7% histórico propio (payout ~80% sostenido).</div>
+        <div class="note">Sin señal de yield trap. Dividendo creciente 10 años seguidos.</div>
+      </div>
+
+      <div class="thesis-card">
+        <h3>ZOFRI <span class="badge badge-warn">Más cara</span></h3>
+        <div class="moat">Concesión/Ley única — riesgo regulatorio binario</div>
+        <div class="yield">~7,2–9,5% actual vs. ~9,7–10,1% en 2023–2024.</div>
+        <div class="note">Algo más cara que su propio promedio reciente. Payout sobre FCF/caja ~107% → vigilar sostenibilidad.</div>
+      </div>
+
+      <div class="thesis-card">
+        <h3>LIPIGAS <span class="badge badge-warn">Precaución</span></h3>
+        <div class="moat">Oligopolio regional</div>
+        <div class="yield">~6,5% actual (calc. ~$535/acción ÷ $8.158) vs. dividendo cayendo ~-4%/año en 5 años.</div>
+        <div class="note">Yield "sostenido" porque el dividendo BAJA, no por crecimiento. Bandera amarilla.</div>
+      </div>
+
+      <div class="thesis-card">
+        <h3>AGUAS-A (Aguas Andinas) <span class="badge badge-na">Baja del rango</span></h3>
+        <div class="moat">Concesión monopólica regulada</div>
+        <div class="yield">~4,1–5,0% actual vs. dividendo cayendo ~-2%/año en 3 años.</div>
+        <div class="note">Payout ~70%, ROE ~10,7%. Concesión estable pero dividendo no crece. No la más atractiva esta semana.</div>
+      </div>
+
+      <div class="thesis-card">
+        <h3>PEHUENCHE <span class="badge badge-ok">En línea / alta</span><span class="pick-star">★ MÁS ATRACTIVA</span></h3>
+        <div class="moat">Débil — generador pequeño, riesgo hidrológico estructural</div>
+        <div class="yield">~10,0–10,6% actual vs. 9,6% (2023) y 10,6% (2024).</div>
+        <div class="note">En línea con su historial, parte alta y consistente. Payout 100% en 2024 (generador regulado, flujos estables).</div>
+      </div>
+
+      <div class="thesis-card">
+        <h3>QUIÑENCO <span class="badge badge-bad">⚠ Yield trap</span></h3>
+        <div class="moat">Holding — moat heredado de sus controladas (revisar duplicidad con CHILE)</div>
+        <div class="yield">Yield recurrente real ~2,8% — la lectura 8–9% de algunos screeners incluye un dividendo EXTRAORDINARIO (~100% utilidad del ejercicio), no recurrente.</div>
+        <div class="note">⚠ No comprar guiado por el yield "titular": no es sostenible. El más bajo de los 6 en términos reales.</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- REGLAS CLAVE IPS -->
+  <div class="section">
+    <h2>📐 Reglas clave de la Política de Inversión (IPS)</h2>
+    <div class="rules-grid">
+      <div class="rule">
+        <div class="rtitle">Asignación objetivo</div>
+        <div class="rtext">70% Dividendos · 7,5% c/u en USA, Emergentes, Internacional desarrollado y Crypto.</div>
+      </div>
+      <div class="rule">
+        <div class="rtitle">Topes duros</div>
+        <div class="rtext">Máx. 30% por empresa individual. Máx. 15% en Crypto — sobre ese nivel, los aportes nuevos se redirigen al resto.</div>
+      </div>
+      <div class="rule">
+        <div class="rtitle">Rebalanceo</div>
+        <div class="rtext">100% pasivo: nunca se vende para reequilibrar. Los aportes nuevos evitan las categorías sobreponderadas.</div>
+      </div>
+      <div class="rule">
+        <div class="rtitle">Reglas de compra</div>
+        <div class="rtext">No comprar sin checklist de tesis. Condición de salida escrita ANTES de comprar. No promediar a la baja solo porque "está más barato".</div>
+      </div>
+      <div class="rule">
+        <div class="rtitle">Reglas de venta</div>
+        <div class="rtext">Se vende solo por condición de salida cumplida o sobreponderación >30% sin tesis. Nunca solo por caída de precio.</div>
+      </div>
+      <div class="rule">
+        <div class="rtitle">Meta</div>
+        <div class="rtext">$2.000.000+ CLP/mes de ingreso pasivo (pesos de hoy) a los 60 años, el 15/02/2057.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>Informe generado a partir de Cartera_SVU_Sistema.xlsx · Datos al 28/06/2026</footer>
+</div>
+
+</body>
+</html>
