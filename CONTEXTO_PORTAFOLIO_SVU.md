@@ -37,23 +37,26 @@
 
 ### Detalle por instrumento (Cartera Detalle, 14 posiciones + caja)
 
-| Instrumento | Categoría | Broker | Costo | Valor | Dividendos | Yield s/costo |
-|---|---|---|---|---|---|---|
-| CFISPETF (ETF S&P 500) | USA | Itaú | $358.145 | $413.064 | $58 | 0,02% |
-| CFINRENTAS (Rentas Inmob.) | Dividendos | Itaú | $149.862 | $193.454 | $12.381 | 8,26% |
-| CFMITNIPSA (ETF IPSA) | Dividendos | Itaú | $95.145 | $119.714 | $3.605 | 3,79% |
-| CFINASDAQ (ETF Nasdaq 100) | USA | Itaú | $48.600 | $58.136 | $0 | 0,00% |
-| Caja + Div. por liquidar | — | Itaú | — | $1.745 | — | — |
-| CHILE (Banco de Chile) | Dividendos | Trii/Zesty | $91.631 | $102.413 | $0 | 0,00% |
-| ZOFRI | Dividendos | Trii | $99.792 | $98.044 | $0 | 0,00% |
-| LIPIGAS | Dividendos | Trii | $39.897 | $78.300 | $5.976 | 14,98% |
-| AGUAS-A (Aguas Andinas) | Dividendos | Trii | $18.842 | $18.680 | $0 | 0,00% |
-| PEHUENCHE | Dividendos | Trii | $18.512 | $17.918 | $0 | 0,00% |
-| QUIÑENCO | Dividendos | Trii | $11.596 | $11.613 | $0 | 0,00% |
-| VWO (Emerging Markets ETF) | Emergentes | XTB | $98.034 | $104.198 | $0 | 0,00% |
-| MSFT (Microsoft) | USA | XTB | $50.615 | $49.323 | $0 | 0,00% |
-| AAPL (Apple) | USA | XTB | $1.039 | $1.138 | $0 | 0,00% |
-| BTC (Bitcoin) | Crypto | Binance | $284.849 | $188.850 | $0 | -33,70% retorno |
+| Instrumento | Categoría | Broker | Cantidad | P. Compra | P. Actual | Costo | Valor | Ganancia $ | Ganancia % | Dividendo $ | Yield s/costo | Retorno total | % Cartera |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| CFISPETF (ETF S&P 500) | USA | Itaú | 240 | $1.492,27 | $1.721,10 | $358.145 | $413.064 | +$54.919 | +15,33% | $58 | 0,02% | +15,35% | 28,4% |
+| CFINRENTAS (Rentas Inmob.) | Dividendos | Itaú | 88 | $1.702,98 | $2.198,34 | $149.862 | $193.454 | +$43.592 | +29,09% | $12.381 | 8,26% | +37,35% | 13,3% |
+| CFMITNIPSA (ETF IPSA) | Dividendos | Itaú | 24 | $3.964,38 | $4.988,10 | $95.145 | $119.714 | +$24.569 | +25,83% | $3.605 | 3,79% | +29,62% | 8,2% |
+| CFINASDAQ (ETF Nasdaq 100) | USA | Itaú | 27 | $1.800,00 | $2.153,20 | $48.600 | $58.136 | +$9.536 | +19,62% | $0 | 0,00% | +19,62% | 4,0% |
+| Caja + Div. por liquidar | — | Itaú | — | — | — | — | $1.745 | — | — | — | — | — | 0,1% |
+| CHILE (Banco de Chile) | Dividendos | Trii+Zesty | 576 | $159,08 | $177,80 | $91.631 | $102.413 | +$10.782 | +11,77% | $0 | 0,00% | +11,77% | 7,0% |
+| ZOFRI | Dividendos | Zesty | 99 | $1.008,00 | $990,34 | $99.792 | $98.044 | -$1.748 | -1,75% | $0 | 0,00% | -1,75% | 6,7% |
+| LIPIGAS | Dividendos | Trii | 9 | $4.433,00 | $8.700,00 | $39.897 | $78.300 | +$38.403 | +96,26% | $5.976 | 14,98% | +111,23% | 5,4% |
+| AGUAS-A (Aguas Andinas) | Dividendos | Zesty | 56 | $336,47 | $333,57 | $18.842 | $18.680 | -$162 | -0,86% | $0 | 0,00% | -0,86% | 1,3% |
+| PEHUENCHE | Dividendos | Zesty | 7 | $2.644,60 | $2.559,71 | $18.512 | $17.918 | -$594 | -3,21% | $0 | 0,00% | -3,21% | 1,2% |
+| QUIÑENCO | Dividendos | Zesty | 3 | $3.865,30 | $3.871,00 | $11.596 | $11.613 | +$17 | +0,15% | $0 | 0,00% | +0,15% | 0,8% |
+| VWO (Emerging Markets ETF) | Emergentes | XTB | 1,962 | 55,67 USD | 59,17 USD | $98.034 | $104.198 | +$6.163 | +6,29% | $0 | 0,00% | +6,29% | 7,2% |
+| MSFT (Microsoft) | USA | XTB | 0,149 | 378,47 USD | 368,81 USD | $50.615 | $49.323 | -$1.292 | -2,55% | $0 | 0,00% | -2,55% | 3,4% |
+| AAPL (Apple) | USA | XTB | 0,0045 | 257,30 USD | 281,78 USD | $1.039 | $1.138 | +$99 | +9,51% | $0 | 0,00% | +9,51% | 0,1% |
+| BTC (Bitcoin) | Crypto | Binance | 0,00327037 | $87.099.843 | $57.745.876 | $284.849 | $188.850 | -$95.998 | -33,70% | $0 | 0,00% | -33,70% | 13,0% |
+| **TOTAL** | | | | | | **$1.366.560** | **$1.456.591** | **+$90.031** | **+6,59%** | **$22.020** | **1,61%** | **+8,20%** | **100%** |
+
+Notas: VWO/MSFT/AAPL cotizan en USD (XTB), convertidos a CLP con FX implícito ~897,55 CLP/USD. BTC en CLP nativo (Binance), sin conversión. CHILE combina dos lotes: 570 acciones en Trii ($158,88) + 6 en Zesty ($178,252) → costo promedio ponderado $159,08.
 
 **Yield real de la categoría Dividendos: 4,18% s/costo** (no el 6,5%/año que asume el modelo de proyección). Solo 3 de 8 instrumentos de la categoría reparten: CFINRENTAS (56,2% del dividendo total), LIPIGAS (27,1%), CFMITNIPSA (16,4%). CHILE, ZOFRI, AGUAS-A, PEHUENCHE y QUIÑENCO aún no registran reparto.
 
