@@ -19,21 +19,21 @@
 
 | Categoría | Valor mercado | % cartera | Meta IPS | Estado |
 |---|---|---|---|---|
-| Dividendos | $640.136 | 44,2% | 70% | Subponderado (-25,8 pp) |
-| USA | $521.661 | 36,0% | 7,5% | Sobreponderado (+28,5 pp) |
-| Crypto | $180.452 | 12,5% | 7,5% (tope 15%) | Sobreponderado (+5,0 pp) |
+| Dividendos | $640.136 | 44,0% | 70% | Subponderado (-26,0 pp) |
+| USA | $521.661 | 35,8% | 7,5% | Sobreponderado (+28,3 pp) |
+| Crypto | $188.850 | 13,0% | 7,5% (tope 15%) | Sobreponderado (+5,5 pp) |
 | Emergentes | $104.198 | 7,2% | 7,5% | Casi en meta |
 | Internacional | $0 | 0,0% | 7,5% | Vacío |
 | Caja | $1.745 | 0,1% | — | — |
-| **TOTAL** | **$1.448.192** | 100% | | |
+| **TOTAL** | **$1.456.591** | 100% | | |
 
 **Resumen de resultados:**
-- Costo total invertido: $1.366.975
-- Ganancia no realizada: $81.217
+- Costo total invertido: $1.366.560
+- Ganancia no realizada: $90.031
 - Dividendos acumulados: $22.020
-- **Retorno total ponderado: +7,55%**
+- **Retorno total ponderado: +8,20%**
 - **Retorno ex-BTC: +19,23%** (+17,20% capital + 2,04% dividendo) — el resto de la cartera funciona bien
-- **BTC solo: -36,74%** — resta ~12 puntos al retorno total; 0% yield, no aporta al objetivo de dividendos
+- **BTC solo: -33,70%** — resta puntos al retorno total; 0% yield, no aporta al objetivo de dividendos
 
 ### Detalle por instrumento (Cartera Detalle, 14 posiciones + caja)
 
@@ -53,7 +53,7 @@
 | VWO (Emerging Markets ETF) | Emergentes | XTB | $98.034 | $104.198 | $0 | 0,00% |
 | MSFT (Microsoft) | USA | XTB | $50.615 | $49.323 | $0 | 0,00% |
 | AAPL (Apple) | USA | XTB | $1.039 | $1.138 | $0 | 0,00% |
-| BTC (Bitcoin) | Crypto | Binance | $285.264 | $180.452 | $0 | -36,74% retorno |
+| BTC (Bitcoin) | Crypto | Binance | $284.849 | $188.850 | $0 | -33,70% retorno |
 
 **Yield real de la categoría Dividendos: 4,18% s/costo** (no el 6,5%/año que asume el modelo de proyección). Solo 3 de 8 instrumentos de la categoría reparten: CFINRENTAS (56,2% del dividendo total), LIPIGAS (27,1%), CFMITNIPSA (16,4%). CHILE, ZOFRI, AGUAS-A, PEHUENCHE y QUIÑENCO aún no registran reparto.
 
@@ -163,7 +163,7 @@ A los 65 años: cobertura de meta ~56,5% ($4.645.198 de $8.213.305 requeridos), 
 ## 7. Metodología y notas técnicas (para continuidad)
 
 - **FX usado para activos en USD (AAPL/VWO/MSFT)**: ~897,55 CLP/USD, derivado por consistencia interna del costo ya registrado en el workbook (no es una tasa de mercado fresca — el usuario puede corregirla si tiene la tasa exacta usada por XTB).
-- **BTC**: precios ya en CLP nativo, sin conversión FX. Precio de compra real corregido a $87.229.427,53 CLP/BTC (antes se tenía subestimado en ~$67,9MM CLP/BTC).
+- **BTC**: precios ya en CLP nativo, sin conversión FX. Ajustado con el detalle exacto de la app Binance: cantidad 0,00327037 BTC, costo $87.099.842,82 CLP/BTC, precio actual $57.745.876,40 CLP/BTC (antes se tenía subestimado en ~$67,9MM CLP/BTC en un registro previo).
 - **Descomposición de retorno total usada en todas las tablas**: Ganancia Capital % = (Valor−Costo)/Costo; Yield s/costo % = Dividendos/Costo; Retorno Total % = (Ganancia+Dividendos)/Costo.
 - **Simulación de proyección** (motor Python, no vive en el repo aún como archivo definitivo — recrear si se necesita): define categorías, yields/apreciaciones anuales y mensuales compuestos, saldo inicial reconciliado, función `aporte_base(mes)` con crecimiento +5%/año, función `allocate()` que implementa el rebalanceo 100% pasivo, y función `simulate()` que corre mes a mes devolviendo historial de dividendos y saldo total.
 - El archivo Excel (`Cartera Detalle`, fila 3 encabezado, filas 4-18 = 14 instrumentos + caja, fila 19 = TOTAL con fórmulas `SUM`) ya contiene fórmulas SUMIF que alimentan `Proyección Mensual` en vivo.
